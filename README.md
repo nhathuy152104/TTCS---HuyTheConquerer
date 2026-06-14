@@ -23,5 +23,5 @@
 
 python visualize.py \
 --sequence 11 \
---dataset /path/to/SemanticKITTI \
---predictions /path/to/outpu
+--dataset ./dataset \
+--predictions ./out/SemKITTI
