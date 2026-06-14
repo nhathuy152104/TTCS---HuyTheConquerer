@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# This file is covered by the LICENSE file in the root of this project.
+
 
 import argparse
 import os
@@ -19,7 +18,7 @@ if __name__ == '__main__':
       '--config', '-c',
       type=str,
       required=False,
-      default="config/semantic-kitti.yaml",
+      default="configs/semantic-kitti.yaml",
       help='Dataset config file. Defaults to %(default)s',
   )
   parser.add_argument(
@@ -99,7 +98,6 @@ if __name__ == '__main__':
   )
   FLAGS, unparsed = parser.parse_known_args()
 
-  # print summary of what we will do
   print("*" * 80)
   print("INTERFACE:")
   print("Dataset", FLAGS.dataset)
@@ -115,7 +113,6 @@ if __name__ == '__main__':
   print("offset", FLAGS.offset)
   print("*" * 80)
 
-  # open config file
   try:
     print("Opening config file %s" % FLAGS.config)
     CFG = yaml.safe_load(open(FLAGS.config, 'r'))
@@ -124,10 +121,8 @@ if __name__ == '__main__':
     print("Error opening yaml file.")
     quit()
 
-  # fix sequence name
   FLAGS.sequence = '{0:02d}'.format(int(FLAGS.sequence))
 
-  # does sequence folder exist?
   scan_paths = os.path.join(FLAGS.dataset, "sequences",
                             FLAGS.sequence, "velodyne")
   if os.path.isdir(scan_paths):
@@ -136,12 +131,10 @@ if __name__ == '__main__':
     print(f"Sequence folder {scan_paths} doesn't exist! Exiting...")
     quit()
 
-  # populate the pointclouds
   scan_names = [os.path.join(dp, f) for dp, dn, fn in os.walk(
       os.path.expanduser(scan_paths)) for f in fn]
   scan_names.sort()
 
-  # does sequence folder exist?
   if not FLAGS.ignore_semantics:
     if FLAGS.predictions is not None:
       label_paths = os.path.join(FLAGS.predictions, "sequences",
@@ -155,12 +148,10 @@ if __name__ == '__main__':
       print(f"Labels folder {label_paths} doesn't exist! Exiting...")
       quit()
 
-    # populate the pointclouds
     label_names = [os.path.join(dp, f) for dp, dn, fn in os.walk(
         os.path.expanduser(label_paths)) for f in fn]
     label_names.sort()
 
-    # check that there are same amount of labels and scans
     if not FLAGS.ignore_safety:
         min_len = min(len(label_names), len(scan_names))
         scan_names = scan_names[:min_len]
@@ -189,11 +180,9 @@ if __name__ == '__main__':
                      offset=FLAGS.offset,
                      semantics=semantics, instances=True and semantics, images=images, link=FLAGS.link)
 
-  # print instructions
   print("To navigate:")
   print("\tb: back (previous scan)")
   print("\tn: next (next scan)")
   print("\tq: quit (exit program)")
 
-  # run the visualizer
   vis.run()

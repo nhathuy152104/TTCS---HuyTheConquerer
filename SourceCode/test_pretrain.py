@@ -17,7 +17,6 @@ from dataloader.dataset import collate_fn_BEV,SemKITTI,SemKITTI_label_name,spher
 from network.instance_post_processing import get_panoptic_segmentation
 from utils.eval_pq import PanopticEval
 from utils.configs import merge_configs
-#ignore weird np warning
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -28,7 +27,7 @@ def SemKITTI2train(label):
         return SemKITTI2train_single(label)
 
 def SemKITTI2train_single(label):
-    return label - 1 # uint8 trick
+    return label - 1 
 
 def main(args):
     data_path = args['dataset']['path']
@@ -46,11 +45,9 @@ def main(args):
         fea_dim = 7
         circular_padding = False
 
-    # prepare miou fun
     unique_label=np.asarray(sorted(list(SemKITTI_label_name.keys())))[1:] - 1
     unique_label_str=[SemKITTI_label_name[x] for x in unique_label+1]
 
-    # prepare model
     my_BEV_model=BEV_Unet(n_class=len(unique_label), n_height = compression_model, input_batch_norm = True, dropout = 0.5, circular_padding = circular_padding, use_vis_fea=visibility)
     my_model = ptBEVnet(my_BEV_model, pt_model = 'pointnet', grid_size =  grid_size, fea_dim = fea_dim, max_pt_per_encode = 256,
                             out_pt_fea_dim = 512, kernal_size = 1, pt_selection = 'random', fea_compre = compression_model)
@@ -61,7 +58,6 @@ def main(args):
     my_model.to(pytorch_device)
     my_model.eval()
 
-    # prepare dataset
     test_pt_dataset = SemKITTI(data_path + '/sequences/', imageset = 'test', return_ref = True, instance_pkl_path=args['dataset']['instance_pkl_path'])
     val_pt_dataset = SemKITTI(data_path + '/sequences/', imageset = 'val', return_ref = True, instance_pkl_path=args['dataset']['instance_pkl_path'])
     if args['model']['polar']:
