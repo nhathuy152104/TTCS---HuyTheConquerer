@@ -32,13 +32,9 @@ class LaserScanVis:
 
   def reset(self):
     """ Reset. """
-    # last key press (it should have a mutex, but visualization is not
-    # safety critical, so let's do things wrong)
-    self.action = "no"  # no, next, back, quit are the possibilities
+    self.action = "no"  
 
-    # new canvas prepared for visualizing data
     self.canvas = SceneCanvas(keys='interactive', show=True)
-    # interface (n next, b back, q quit, very simple)
     self.canvas.events.key_press.connect(self.key_press)
     self.canvas.events.draw.connect(self.draw)
     # grid
