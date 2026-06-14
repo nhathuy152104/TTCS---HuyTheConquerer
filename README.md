@@ -2,11 +2,19 @@
 
 
 📦 1. Setup Environment
+
   conda create -n polarnet python=3.8
+  
   conda activate polarnet
+  
 📥 2. Install dependencies
-  pip install -r requirements.txt
+
+  pip install -r requirements.txt\
+  
 🏋️ 3. Training
+
   python train.py
+  
 🔮 4. Inference 
+
   python infer.py
