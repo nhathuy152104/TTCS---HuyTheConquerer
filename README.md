@@ -18,3 +18,10 @@
 🔮 4. Inference 
 
   python infer.py
+
+🎨 5. Visualization 
+
+python visualize.py \
+--sequence 11 \
+--dataset /path/to/SemanticKITTI \
+--predictions /path/to/outpu
