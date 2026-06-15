@@ -51,11 +51,6 @@ SourceCode/
 	    └── ...
 ```
 
-5, Instance preprocessing:
-```shell
-python instance_preprocess.py -d </your data path> -o </preprocessed file output path>
-``` 
-
 ## Training
 ```
 python train.py
