@@ -8,26 +8,16 @@ Mô hình dự đoán Pagnotic Segmantation cho Lidar Point Cloud, giúp phân b
 # CẤU TRÚC DỰ ÁN
 ```
 SourceCode/
-│── configs/       # React UI
-│── dataloader/         # NodeJS API + MongoDB
-│── data
-│── network      # Python AI service
-│── pretrained_weight     # Chạy FE + BE cùng lúc
+│── configs/      
+│── dataloader/         
+│── dataset/
+│── network/    
+│── pretrained_weight/    
 │── utils/
 │── train.py
 │── visualize.py
 │── infer.py
 ```
-<p align="center">
-        <img src="imgs/CVPR_pipeline.png" width="100%"> 
-</p>
-
-We test Panoptic-PolarNet on SemanticKITTI and nuScenes datasets. Experiment shows that Panoptic-PolarNet reaches state-of-the-art performances with a real-time inference speed.
-
-<p align="center">
-        <img src="imgs/result.png" width="100%"> 
-</p>
-
 
 ## Set up data và môi trường
 
@@ -67,13 +57,15 @@ python instance_preprocess.py -d </your data path> -o </preprocessed file output
 ``` 
 
 ## Training
+```
 python train.py
-
+```
 
 ## Infer
-
+```
 python infer.py
-
+```
 ## Visualize
-
-python visualize.py --sequence {} --dataset ./dataset --predictions ./out 
+```
+python visualize.py --sequence {} --dataset ./dataset --predictions ./out
+```
