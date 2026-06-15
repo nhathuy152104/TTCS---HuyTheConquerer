@@ -6,6 +6,7 @@ Mô hình dự đoán Pagnotic Segmantation cho Lidar Point Cloud, giúp phân b
 </p>
 
 # CẤU TRÚC DỰ ÁN
+```
 SourceCode/
 │── configs/       # React UI
 │── dataloader/         # NodeJS API + MongoDB
@@ -16,6 +17,7 @@ SourceCode/
 │── train.py
 │── visualize.py
 │── infer.py
+```
 <p align="center">
         <img src="imgs/CVPR_pipeline.png" width="100%"> 
 </p>
