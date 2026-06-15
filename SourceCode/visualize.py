@@ -1,5 +1,3 @@
-
-
 import argparse
 import os
 import yaml
@@ -18,7 +16,7 @@ if __name__ == '__main__':
       '--config', '-c',
       type=str,
       required=False,
-      default="configs/semantic-kitti.yaml",
+      default="semantic-kitti.yaml",
       help='Dataset config file. Defaults to %(default)s',
   )
   parser.add_argument(

@@ -6,13 +6,7 @@ import torch
 from .lovasz_losses import lovasz_softmax
 
 def _neg_loss(pred, gt):
-    ''' Modified focal loss. Exactly the same as CornerNet.
-        Runs faster and costs a little bit more memory
-        (https://github.com/tianweiy/CenterPoint)
-    Arguments:
-        pred (batch x c x h x w)
-        gt (batch x c x h x w)
-    '''
+
     pos_inds = gt.eq(1).float()
     neg_inds = gt.lt(1).float()
 
@@ -25,7 +19,6 @@ def _neg_loss(pred, gt):
     return - (pos_loss + neg_loss)
 
 class FocalLoss(torch.nn.Module):
-    '''nn.Module warpper for focal loss'''
     def __init__(self):
         super(FocalLoss, self).__init__()
         self.neg_loss = _neg_loss
